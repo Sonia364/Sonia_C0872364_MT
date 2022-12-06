@@ -1,18 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp" >
     <TextView
+        android:id="@+id/mainLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
+        android:text="Car Rent Service"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:id="@+id/blockFirst"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        android:layout_below="@+id/mainLabel"
+        >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Spinner
+            android:id="@+id/carsList"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:minHeight="30dp"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/blockSecond"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/blockFirst"
+        >
+        <EditText
+            android:id="@+id/mealPrice"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:minHeight="30dp"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            android:hint="Daily Rent"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/blockThird"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/blockSecond"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="How many days you want to rent ?:"
+                android:textSize="16dp"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/daysText"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="#Days"
+                android:minHeight="30dp"/>
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/quantitySeekbar"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:minHeight="48dp"
+            android:progress="1"
+            android:max="10"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/blockFour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/blockThird"
+        >
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Driver's Age:"
+            android:textSize="17dp"
+            android:textColor="@color/black"/>
+        <RadioGroup
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="16dp"
+            android:id="@+id/radioGroup"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:paddingLeft="30dp">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Less than 20"
+                android:id="@+id/lessRadio"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Between 21 and 60"
+                android:id="@+id/betweenRadio"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/aboveRadio"
+                android:text="Above 60"/>
+        </RadioGroup>
+
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+        android:text="Options:"
+        android:textSize="17dp"
+        android:textColor="@color/black"
+        android:layout_below="@id/blockFour"/>
+
+    <LinearLayout
+        android:id="@+id/blockFive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/options"
+        >
+
+        <CheckBox
+            android:id="@+id/gpsCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GPS"
+            android:textSize="16dp"
+            />
+        <CheckBox
+            android:id="@+id/childCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Child Seat"
+            android:textSize="16dp"
+            />
+        <CheckBox
+            android:id="@+id/unlimitedCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unlimited millage"
+            android:textSize="16dp"
+            />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/blockSix"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/blockFive">
+        <EditText
+            android:id="@+id/amount"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            android:minHeight="30dp"
+            android:hint="Amount"/>
+        <EditText
+            android:id="@+id/totalPayment"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:minHeight="30dp"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            android:hint="Total Payment"/>
+    </LinearLayout>
+
+
+
+
+    <Button
+        android:id="@+id/orderBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/blockSix"
+        android:text="View Detail"
+        android:textAllCaps="true"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>
