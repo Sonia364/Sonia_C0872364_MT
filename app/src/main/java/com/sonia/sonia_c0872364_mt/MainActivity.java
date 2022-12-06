@@ -2,10 +2,12 @@ package com.sonia.sonia_c0872364_mt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -15,6 +17,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener , View.OnClickListener {
 
@@ -33,6 +37,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     String priceVal = "";
     EditText amountVal;
     EditText totalPayment;
+    Button viewBtn;
+    ArrayList<String> rentInfo;
+    String selectedItem;
+    String checkItems;
+    int rentAmount;
+    int totalAmount;
 
 
     @Override
@@ -50,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         unlimitedMillage = findViewById(R.id.unlimitedCheckbox);
         amountVal = findViewById(R.id.amount);
         totalPayment = findViewById(R.id.totalPayment);
+        viewBtn = findViewById(R.id.viewBtn);
 
 
         //  spinner functionality
@@ -118,11 +129,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
                 }
         );
+
+        // view button functionality
+        viewBtn.setOnClickListener(
+                v ->{
+                    ArrayList<String> myStrings = new ArrayList<>();
+                    myStrings.add("Car is: "+ selectedItem);
+                    Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+                    intent.putExtra("rentDetails", myStrings);
+                    startActivity(intent);
+                }
+        );
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
-        String selectedItem = String.valueOf(adapterView.getItemAtPosition(pos));
+        selectedItem = String.valueOf(adapterView.getItemAtPosition(pos));
         switch (selectedItem){
             case "BMW":
                 priceVal = "4000";
@@ -159,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     public void calculateAmount(){
-          int rentAmount = Integer.parseInt(price.getText().toString());
+          rentAmount = Integer.parseInt(price.getText().toString());
 //        switch (age){
 //            case "Less than 20":
 //                rentAmount = rentAmount + 5;
@@ -178,10 +200,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //            rentAmount += 10;
 //        }
 //
-//        amountVal.setText(String.valueOf(rentAmount));
-        int taxAmount = (rentAmount * TAX)/100;
-        int finalAmount = rentAmount + taxAmount;
-          totalPayment.setText(String.valueOf(finalAmount));
+         amountVal.setText(String.valueOf(rentAmount));
+         int taxAmount = (rentAmount * TAX)/100;
+         totalAmount = rentAmount + taxAmount;
+         totalPayment.setText(String.valueOf(totalAmount));
+    }
+
+    private ArrayList<String> getRentDetails() {
+        rentInfo.add("test");
+
+        return rentInfo;
     }
 
 
