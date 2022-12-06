@@ -45,7 +45,7 @@
         android:layout_below="@+id/blockFirst"
         >
         <EditText
-            android:id="@+id/mealPrice"
+            android:id="@+id/carPrice"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
