@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Sonia_C0872364_MT</string>
+    <string-array name="cars">
+        <item>Please choose a car</item>
+        <item>BMW</item>
+        <item>Audi</item>
+        <item>Cadillac</item>
+        <item>Volks Wagon</item>
+        <item>Mercedes</item>
+        <item>Peugeot</item>
+    </string-array>
 </resources>
