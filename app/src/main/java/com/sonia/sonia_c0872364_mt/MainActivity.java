@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +28,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     CheckBox gps;
     CheckBox childSeat;
     CheckBox unlimitedMillage;
-    int age;
-    final int Tax = 13;
+    String age;
+    final int TAX = 13;
+    String priceVal = "";
+    EditText amountVal;
+    EditText totalPayment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         gps = findViewById(R.id.gpsCheckbox);
         childSeat = findViewById(R.id.childCheckbox);
         unlimitedMillage = findViewById(R.id.unlimitedCheckbox);
+        amountVal = findViewById(R.id.amount);
+        totalPayment = findViewById(R.id.totalPayment);
 
 
         //  spinner functionality
@@ -67,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             public void onStopTrackingTouch(SeekBar seekBar) {
                 days = progressChangedValue;
                 daysTextVal.setText(String.valueOf(days));
+                //calculateAmount();
 //                Toast.makeText(MainActivity.this, "Seek bar progress is :" + progressChangedValue,
 //                        Toast.LENGTH_SHORT).show();
             }
@@ -82,8 +90,32 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 v->{
                     int selectedId= radio_group.getCheckedRadioButtonId();
                     radioBtn = findViewById(selectedId);
-                    age = Integer.parseInt(String.valueOf(radioBtn.getText()));
+                    age = radioBtn.getText().toString();
+                    calculateAmount();
                     //Toast.makeText(MainActivity.this,radioBtn.getText(),Toast.LENGTH_SHORT).show();
+                }
+        );
+
+        // checkbox functionality
+        gps.setOnClickListener(
+                v->{
+                    if(gps.isChecked()){
+                        calculateAmount();
+                    }
+                }
+        );
+        childSeat.setOnClickListener(
+                v->{
+                    if(childSeat.isChecked()){
+                        calculateAmount();
+                    }
+                }
+        );
+        unlimitedMillage.setOnClickListener(
+                v->{
+                    if(unlimitedMillage.isChecked()){
+                        calculateAmount();
+                    }
                 }
         );
     }
@@ -91,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
         String selectedItem = String.valueOf(adapterView.getItemAtPosition(pos));
-        String priceVal = "";
         switch (selectedItem){
             case "BMW":
                 priceVal = "4000";
@@ -124,6 +155,33 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onClick(View view) {
 
+    }
+
+
+    public void calculateAmount(){
+          int rentAmount = Integer.parseInt(price.getText().toString());
+//        switch (age){
+//            case "Less than 20":
+//                rentAmount = rentAmount + 5;
+//                break;
+//            case "Above 60":
+//                rentAmount = rentAmount - 10;
+//                break;
+//        }
+//        if(gps.isChecked()){
+//            rentAmount += 5;
+//        }
+//        if(childSeat.isChecked()){
+//            rentAmount += 7;
+//        }
+//        if(unlimitedMillage.isChecked()){
+//            rentAmount += 10;
+//        }
+//
+//        amountVal.setText(String.valueOf(rentAmount));
+        int taxAmount = (rentAmount * TAX)/100;
+        int finalAmount = rentAmount + taxAmount;
+          totalPayment.setText(String.valueOf(finalAmount));
     }
 
 
