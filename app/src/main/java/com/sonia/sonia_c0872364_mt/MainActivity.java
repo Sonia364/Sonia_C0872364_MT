@@ -85,9 +85,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             public void onStopTrackingTouch(SeekBar seekBar) {
                 days = progressChangedValue;
                 daysTextVal.setText(String.valueOf(days));
-                //calculateAmount();
-//                Toast.makeText(MainActivity.this, "Seek bar progress is :" + progressChangedValue,
-//                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -135,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         myStrings.add("Rent is: "+ priceVal);
                         myStrings.add("Rent for days : "+ days);
                         myStrings.add("Age is: "+ age);
+                        myStrings.add("Options: "+ checkItems);
                         myStrings.add("Amount is: "+ rentAmount);
                         myStrings.add("Total Payment is: "+ totalAmount);
                         Intent intent = new Intent(MainActivity.this, MainActivity2.class);
