@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     CheckBox unlimitedMillage;
     String age;
     final int TAX = 13;
-    int priceVal;
+    String priceVal;
     EditText amountVal;
     EditText totalPayment;
     Button viewBtn;
@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 v->{
                     if(gps.isChecked()){
                         calculateAmount();
+                        checkItems = "GPS";
                     }
                 }
         );
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 v->{
                     if(childSeat.isChecked()){
                         calculateAmount();
+                        checkItems = "Child Seat";
                     }
                 }
         );
@@ -116,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 v->{
                     if(unlimitedMillage.isChecked()){
                         calculateAmount();
+                        checkItems = "Unlimited Millage";
                     }
                 }
         );
@@ -148,27 +151,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         selectedItem = String.valueOf(adapterView.getItemAtPosition(pos));
         switch (selectedItem){
             case "BMW":
-                priceVal = 4000;
+                priceVal = "4000";
                 break;
             case "Audi":
-                priceVal = 6000;
+                priceVal = "6000";
                 break;
             case "Cadillac":
-                priceVal = 4500;
+                priceVal = "4500";
                 break;
             case "Volks Wagon":
-                priceVal = 5000;
+                priceVal = "5000";
                 break;
             case "Mercedes":
-                priceVal = 8000;
+                priceVal = "8000";
                 break;
             case "Peugeot":
-                priceVal = 6500;
+                priceVal = "6500";
                 break;
 
 
         }
-        price.setText(String.valueOf(priceVal));
+        price.setText(priceVal);
     }
 
     @Override
@@ -195,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     public void calculateAmount(){
-          rentAmount = Integer.parseInt(String.valueOf(priceVal));
+          rentAmount = Integer.parseInt(priceVal);
             switch (age){
                 case "Less than 20":
                     rentAmount = rentAmount + 5;
@@ -220,11 +223,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
          totalPayment.setText(String.valueOf(totalAmount));
     }
 
-    private ArrayList<String> getRentDetails() {
-        rentInfo.add("test");
-
-        return rentInfo;
-    }
 
 
 
