@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     Spinner spinner;
     EditText price;
     SeekBar seekbar;
-    int days = 1;
+    int days = 0;
     TextView daysTextVal;
     RadioGroup radio_group;
     RadioButton radioBtn;
@@ -34,15 +34,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     CheckBox unlimitedMillage;
     String age;
     final int TAX = 13;
-    String priceVal = "";
+    int priceVal;
     EditText amountVal;
     EditText totalPayment;
     Button viewBtn;
     ArrayList<String> rentInfo;
     String selectedItem;
     String checkItems;
-    int rentAmount;
-    int totalAmount;
+    int rentAmount = 0;
+    int totalAmount = 0;
 
 
     @Override
@@ -97,16 +97,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         findViewById(R.id.betweenRadio).setOnClickListener(this);
         findViewById(R.id.aboveRadio).setOnClickListener(this);
 
-        radio_group.setOnClickListener(
-                v->{
-                    int selectedId= radio_group.getCheckedRadioButtonId();
-                    radioBtn = findViewById(selectedId);
-                    age = radioBtn.getText().toString();
-                    calculateAmount();
-                    //Toast.makeText(MainActivity.this,radioBtn.getText(),Toast.LENGTH_SHORT).show();
-                }
-        );
-
         // checkbox functionality
         gps.setOnClickListener(
                 v->{
@@ -133,11 +123,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // view button functionality
         viewBtn.setOnClickListener(
                 v ->{
-                    ArrayList<String> myStrings = new ArrayList<>();
-                    myStrings.add("Car is: "+ selectedItem);
-                    Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-                    intent.putExtra("rentDetails", myStrings);
-                    startActivity(intent);
+                    if(selectedItem.equals("Please choose a car") || days == 0 || age.isEmpty()){
+                        Toast.makeText(this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        ArrayList<String> myStrings = new ArrayList<>();
+                        myStrings.add("Selected Car is: "+ selectedItem);
+                        myStrings.add("Rent is: "+ priceVal);
+                        myStrings.add("Rent for days : "+ days);
+                        myStrings.add("Age is: "+ age);
+                        myStrings.add("Amount is: "+ rentAmount);
+                        myStrings.add("Total Payment is: "+ totalAmount);
+                        Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+                        intent.putExtra("rentDetails", myStrings);
+                        startActivity(intent);
+                    }
+
                 }
         );
     }
@@ -147,26 +148,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         selectedItem = String.valueOf(adapterView.getItemAtPosition(pos));
         switch (selectedItem){
             case "BMW":
-                priceVal = "4000";
+                priceVal = 4000;
                 break;
             case "Audi":
-                priceVal = "6000";
+                priceVal = 6000;
                 break;
             case "Cadillac":
-                priceVal = "4500";
+                priceVal = 4500;
                 break;
             case "Volks Wagon":
-                priceVal = "5000";
+                priceVal = 5000;
                 break;
             case "Mercedes":
-                priceVal = "8000";
+                priceVal = 8000;
                 break;
             case "Peugeot":
-                priceVal = "6500";
+                priceVal = 6500;
                 break;
 
+
         }
-        price.setText(priceVal);
+        price.setText(String.valueOf(priceVal));
     }
 
     @Override
@@ -175,31 +177,43 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.lessRadio:
+                age = "Less than 20";
+                break;
+            case R.id.betweenRadio:
+                age = "Between 21 and 60";
+                break;
+            case R.id.aboveRadio:
+                age = "Above 60";
+                break;
+        }
+        calculateAmount();
 
     }
 
 
     public void calculateAmount(){
-          rentAmount = Integer.parseInt(price.getText().toString());
-//        switch (age){
-//            case "Less than 20":
-//                rentAmount = rentAmount + 5;
-//                break;
-//            case "Above 60":
-//                rentAmount = rentAmount - 10;
-//                break;
-//        }
-//        if(gps.isChecked()){
-//            rentAmount += 5;
-//        }
-//        if(childSeat.isChecked()){
-//            rentAmount += 7;
-//        }
-//        if(unlimitedMillage.isChecked()){
-//            rentAmount += 10;
-//        }
-//
+          rentAmount = Integer.parseInt(String.valueOf(priceVal));
+            switch (age){
+                case "Less than 20":
+                    rentAmount = rentAmount + 5;
+                    break;
+                case "Above 60":
+                    rentAmount = rentAmount - 10;
+                    break;
+            }
+        if(gps.isChecked()){
+            rentAmount += 5;
+        }
+        if(childSeat.isChecked()){
+            rentAmount += 7;
+        }
+        if(unlimitedMillage.isChecked()){
+            rentAmount += 10;
+        }
+
          amountVal.setText(String.valueOf(rentAmount));
          int taxAmount = (rentAmount * TAX)/100;
          totalAmount = rentAmount + taxAmount;
