@@ -90,7 +90,7 @@
         </LinearLayout>
 
         <SeekBar
-            android:id="@+id/quantitySeekbar"
+            android:id="@+id/daysSeekbar"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
