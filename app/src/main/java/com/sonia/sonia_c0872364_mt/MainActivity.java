@@ -6,10 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener , View.OnClickListener {
 
@@ -18,6 +22,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     SeekBar seekbar;
     int days = 1;
     TextView daysTextVal;
+    RadioGroup radio_group;
+    RadioButton radioBtn;
+    CheckBox gps;
+    CheckBox childSeat;
+    CheckBox unlimitedMillage;
+    int age;
+    final int Tax = 13;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +39,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         price = findViewById(R.id.carPrice);
         seekbar = findViewById(R.id.daysSeekbar);
         daysTextVal = findViewById(R.id.daysText);
+        radio_group = findViewById(R.id.radioGroup);
+        gps = findViewById(R.id.gpsCheckbox);
+        childSeat = findViewById(R.id.childCheckbox);
+        unlimitedMillage = findViewById(R.id.unlimitedCheckbox);
 
+
+        //  spinner functionality
         spinner.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.cars, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        // seekbar functionality
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressChangedValue = 0;
 
@@ -53,6 +71,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                        Toast.LENGTH_SHORT).show();
             }
         });
+
+        // radio button functionality
+
+        findViewById(R.id.lessRadio).setOnClickListener(this);
+        findViewById(R.id.betweenRadio).setOnClickListener(this);
+        findViewById(R.id.aboveRadio).setOnClickListener(this);
+
+        radio_group.setOnClickListener(
+                v->{
+                    int selectedId= radio_group.getCheckedRadioButtonId();
+                    radioBtn = findViewById(selectedId);
+                    age = Integer.parseInt(String.valueOf(radioBtn.getText()));
+                    //Toast.makeText(MainActivity.this,radioBtn.getText(),Toast.LENGTH_SHORT).show();
+                }
+        );
     }
 
     @Override
@@ -92,4 +125,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onClick(View view) {
 
     }
+
+
+
+
 }
